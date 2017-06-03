@@ -1,0 +1,99 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.jubination.io.parser.model.dao;
+
+
+import com.jubination.io.parser.model.pojo.report.Report;
+import com.jubination.io.parser.model.pojo.report.Profile;
+import com.jubination.io.parser.model.pojo.report.Test;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ *
+ * @author MumbaiZone
+ * @param <T>
+ */
+@Repository
+public class ReportDAOImpl<T> implements java.io.Serializable{
+private Session session=null;
+    @Autowired
+    private SessionFactory sessionFactory;
+
+
+    
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Object buildEntity(Object entity) {
+         Report report=(Report) entity;
+            session = getSessionFactory().getCurrentSession();
+            Report reportTemp = (Report) session.get(Report.class, report.getReportId());
+            if(reportTemp!=null){
+                session.delete(reportTemp);
+            }
+            session.save(report);
+        
+        return (T) report;
+    }
+
+    
+    @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
+    public Object fetchEntity(Object property) {
+        Report report=(Report) property;
+            session = getSessionFactory().getCurrentSession();
+            report = (Report) session.get(Report.class, report.getReportId());
+            if(report!=null){
+                if(report.getBarcodes()!=null){
+                    report.getBarcodes().size();
+                }
+                if(report.getProfileData()!=null){
+                    report.getProfileData().size();
+                }
+                for(Profile profile:report.getProfileData()){
+                    profile.getTestData().size();
+                    for(Test test:profile.getTestData()){
+                        test.getRangeValues().size();
+                    }
+                }
+            }
+        return (T) report;
+    }
+
+        @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
+    public List<Report> fetchAllEntity() {
+            session = getSessionFactory().getCurrentSession();
+           List<Report> list=session.createCriteria(Report.class).list();
+           for(Report report:list){
+            if(report!=null){
+                if(report.getBarcodes()!=null){
+                    report.getBarcodes().size();
+                }
+                if(report.getProfileData()!=null){
+                    report.getProfileData().size();
+                }
+                for(Profile profile:report.getProfileData()){
+                    profile.getTestData().size();
+                    for(Test test:profile.getTestData()){
+                        test.getRangeValues().size();
+                    }
+                }
+            }
+           }
+        return list;
+    }
+     
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+}
