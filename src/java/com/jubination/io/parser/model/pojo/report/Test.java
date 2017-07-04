@@ -148,6 +148,11 @@ public class Test implements Serializable {
         this.warning = warning;
     }
 
+    @Override
+    public String toString() {
+        return "Test{" + "testId=" + testId + ", name=" + name + ", value=" + value + ", referenceChunk=" + referenceChunk + ", rangeType=" + rangeType + ", units=" + units + ", warning=" + warning + ", meaning=" + meaning +", rangeValues=" + rangeValues.toString() + '}';
+    }
+
   
     
 }

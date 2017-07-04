@@ -113,6 +113,12 @@ public class Profile implements Serializable {
         this.warning = warning;
     }
 
+    @Override
+    public String toString() {
+        return "Profile{" + "profileId=" + profileId + ", name=" + name + ", significance=" + significance + ", about=" + about + ", warning=" + warning + ", testData=" + testData.toString() + '}';
+    }
+
+   
   
     
     

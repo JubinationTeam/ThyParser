@@ -7,7 +7,6 @@ package com.jubination.io.parser.service;
 
 
 import com.jubination.io.parser.backend.pojo.thyrocare.report.ReportMessage;
-import com.jubination.io.parser.backend.service.core.report.parallel.worker.ReportOperator;
 import com.jubination.io.parser.backend.service.io.parser.thyrocare.report.parallel.worker.PDFBackendProcess;
 import com.jubination.io.parser.backend.service.io.parser.thyrocare.report.parallel.worker.XMLBackendProcess;
 import com.jubination.io.parser.model.dao.ReportDAOImpl;
@@ -46,6 +45,10 @@ public class ReportService {
     
      //SAVE TO DATABASE
                            public  void buildReport(Report report){
+                               if(report.getAddress().length()>40){
+                                  report.setAddress(report.getAddress().substring(0, 40)); 
+                               }
+                                           System.out.println(report);
                                            
                                             reportDAO.buildEntity(report);
                                             

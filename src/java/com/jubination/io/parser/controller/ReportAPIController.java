@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.jubination.io.parser.backend.service.core.report.parallel.worker.ReportOperator;
 
 
 @Controller
@@ -28,12 +27,10 @@ public class ReportAPIController {
     
     @Autowired
     ReportService service;
-    @Autowired
-    ReportOperator rOperator;
     
     
     @RequestMapping(value="/pdf/parser/{clinic}/{test}/{reportId}",method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,headers="Accept=*/*")
-    public   @ResponseBody ReportMessage startReportParsing(@RequestBody ReportMessage msg, HttpServletRequest request,@PathVariable("clinic") String clinic,@PathVariable("test") String test,@PathVariable("reportId") String reportId,Principal principal) {
+    public   @ResponseBody ReportMessage startReportParsing(@RequestBody ReportMessage msg, HttpServletRequest request,@PathVariable("clinic") String clinic,@PathVariable("test") String test,@PathVariable("reportId") String reportId,Principal principal) throws InterruptedException {
         msg.setReportId(reportId);
         if(clinic.equalsIgnoreCase("thyrocare")){   
                 if(test.equalsIgnoreCase("blood")){  
@@ -57,6 +54,7 @@ public class ReportAPIController {
                      }
                 }
             }
+            Thread.sleep(1000);
             msg.setBody("No proper Value");
             return msg;
 }

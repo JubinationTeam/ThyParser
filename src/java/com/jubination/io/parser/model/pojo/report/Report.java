@@ -153,6 +153,11 @@ public class Report implements java.io.Serializable {
     public void setReportId(String reportId) {
         this.reportId = reportId;
     }
+
+    @Override
+    public String toString() {
+        return "Report{" + "reportId=" + reportId + ", gender=" + gender + ", age=" + age + ", name=" + name + ", address=" + address + ", sampleCollectedDate=" + sampleCollectedDate + ", testCount=" + testCount + ", pageCount=" + pageCount + ", testNames=" + testNames + ", profileData=" + profileData.toString() + ", barcodes=" + barcodes.toString() + '}';
+    }
         
         
         

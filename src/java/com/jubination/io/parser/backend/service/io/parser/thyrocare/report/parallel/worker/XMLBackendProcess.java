@@ -5,7 +5,6 @@
  */
 package com.jubination.io.parser.backend.service.io.parser.thyrocare.report.parallel.worker;
 
-import com.jubination.io.parser.backend.service.core.report.parallel.worker.ReportOperator;
 import com.jubination.io.parser.backend.pojo.thyrocare.report.ReportMessage;
 import com.jubination.io.parser.backend.pojo.thyrocare.report.ThyrocareBarcode;
 import com.jubination.io.parser.backend.pojo.thyrocare.report.ThyrocareDate;
@@ -97,8 +96,6 @@ public class XMLBackendProcess {
                             private boolean flagStress =false;
                              private boolean flagHepatitis =false;
                              
-                             @Autowired
-                             ReportOperator operator;
                              @Autowired
                              ReportService service;
                              
